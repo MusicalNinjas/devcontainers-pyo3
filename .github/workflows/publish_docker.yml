@@ -5,8 +5,8 @@ on:
     branches: 
     - "main"
     paths: 
-    - '.devcontainer/Dockerfile'
-    - '.github/workflows/devcontainer.yml'
+    - "Dockerfile"
+    - ".github/workflows/publish_docker.yml"
 
 jobs:
   build-and-publish:
