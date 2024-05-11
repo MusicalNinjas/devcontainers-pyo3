@@ -21,20 +21,22 @@
                 // rust
                 "rust-analyzer.interpret.tests": true,
                 "rust-analyzer.testExplorer": true,
+                "[rust]": {
+                    "editor.rulers": [100]
+                },
                 // python
                 "python.defaultInterpreterPath": "./.venv/bin/python3",
                 "python.testing.pytestEnabled": true,
+                "[python]": {
+                    "editor.rulers": [120]
+                },
                 // shell
                 "terminal.integrated.defaultProfile.linux": "bash", 
                 "terminal.integrated.profiles.linux": {
                     "bash": {
                         "path": "/usr/bin/bash"
                     }
-                },
-                // editor
-                "editor.rulers": [
-                    120
-                ]
+                }
             }
         }
     },
