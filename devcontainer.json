@@ -41,8 +41,8 @@
         }
     },
     "updateContentCommand": {
-        "rust": "cargo test -v || true",
-        "python": ".devcontainer/setup-py.sh || true"
+        "rust": ".devcontainer/check-rust.sh",
+        "python": ".devcontainer/setup-py.sh"
     },
     "postAttachCommand": {
         "python": ". .venv/bin/activate"
