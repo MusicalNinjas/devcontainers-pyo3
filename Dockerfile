@@ -53,18 +53,9 @@ RUN dnf -y install \
     python3-devel \
     rustup \
 && rustup-init -v -y \
-&& rustup component add rust-src
-
-# pyo3 specifics
-RUN dnf -y install \
-    nox \
-    openssl-devel \
-&& cargo install cargo-llvm-cov \
-&& rustup component add llvm-tools-preview \
+&& rustup component add rust-src \
 && cargo install mdbook \
-&& cargo install cargo-expand \
-&& cargo install lychee
-
+&& cargo install cargo-expand
 
 # ---
 # Final setup steps
