@@ -2,9 +2,11 @@ name: Build and publish Docker images for devcontainer
 
 on: 
   push:
+    branches: 
+    - "main"
     paths: 
-      - '.devcontainer/Dockerfile'
-      - '.github/workflows/devcontainer.yml'
+    - '.devcontainer/Dockerfile'
+    - '.github/workflows/devcontainer.yml'
 
 jobs:
   build-and-publish:
