@@ -54,9 +54,13 @@ RUN dnf -y install \
     python3-devel \
     rustup \
 && rustup-init -v -y \
-&& rustup component add rust-src \
-&& cargo install mdbook \
-&& cargo install cargo-expand
+&& rustup component add \
+    llvm-tools-preview \
+    rust-src \
+&& cargo install \ 
+    grcov \
+    mdbook \
+    cargo-expand
 
 # ---
 # Final setup steps
