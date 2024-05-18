@@ -20,13 +20,13 @@ jobs:
             owner: context.repo.owner,
             repo: context.repo.repo,
             ref: 'refs/tags/pr${{ github.event.number }}',
-            sha: ${{ github.event.pull_request.head.sha }}
+            sha: '${{ github.event.pull_request.head.sha }}'
           }).catch(err => {
             if (err.status !== 409) throw err;
             github.rest.git.updateRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: 'refs/tags/pr${{ github.event.number }}',
-              sha: ${{ github.event.pull_request.head.sha }}
+              sha: '${{ github.event.pull_request.head.sha }}'
             });
           })
