@@ -33,7 +33,7 @@ jobs:
         images: |
           ghcr.io/musicalninjas/pyo3-devcontainer
         tags: |
-          type=ref,event=pr
+          type=raw,value=pr-${{ github.event.number  }}
           type=raw,value=latest
 
     - name: Login to ghcr.io
