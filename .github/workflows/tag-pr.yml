@@ -6,7 +6,7 @@ on:
   
 jobs:
   tag:
-    if: github.event.pull_request.merged
+    if: github.event.pull_request.merged && (github.event.pull_request.head.repo == github.event.pull_request.base.repo)
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -16,16 +16,16 @@ jobs:
       with:
         script: |
           github.rest.git.createRef({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
+            owner: ${{ github.actor }},
+            repo: ${{ github.event.repository }},
             ref: 'refs/tags/pr${{ github.event.number }}',
-            sha: ${{ github.head_ref }}
+            sha: ${{ github.event.pull_request.head.sha }}
           }).catch(err => {
             if (err.status !== 409) throw err;
             github.rest.git.updateRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
+              owner: ${{ github.actor }},
+              repo: ${{ github.event.repository }},
               ref: 'refs/tags/pr${{ github.event.number }}',
-              sha: ${{ github.head_ref }}
+              sha: ${{ github.event.pull_request.head.sha }}
             });
           })
