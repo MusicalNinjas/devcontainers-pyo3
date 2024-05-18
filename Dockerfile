@@ -23,6 +23,14 @@ ENV RUSTUP_HOME=/opt/rustup \
 RUN mkdir --mode=777 --parents $RUSTUP_HOME \
 && mkdir --mode=777 --parents $CARGO_HOME
 
+# Create the default user - most agents mount workspace directory chowned to 1000:1000
+ARG USERNAME=pyo3
+ARG USER_UID=1000
+ARG USER_GID=${USER_UID}
+RUN groupadd --gid ${USER_GID} ${USERNAME} \
+&& useradd --uid ${USER_UID} --gid ${USER_GID} -m ${USERNAME} \
+&& echo ${USERNAME} ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
+&& chmod 0440 /etc/sudoers.d/${USERNAME}
 
 # ---
 # Install ...
@@ -50,6 +58,7 @@ RUN dnf -y install \
     python-pytest
 
 # Rust (and python headers)
+# and chown CARGO_HOME and RUSTUP_HOME to the default user 
 RUN dnf -y install \
     clang \
     python3-devel \
@@ -61,23 +70,13 @@ RUN dnf -y install \
 && cargo install \ 
     grcov \
     mdbook \
-    cargo-expand
+    cargo-expand \
+&& chown -R ${USER_UID} ${CARGO_HOME} \
+&& chown -R ${USER_UID} ${RUSTUP_HOME}
 
 # ---
 # Final setup steps
 # ---
-
-# Create the default user - most agents mount workspace directory chowned to 1000:1000
-# and chown CARGO_HOME and RUSTUP_HOME to the default user 
-ARG USERNAME=pyo3
-ARG USER_UID=1000
-ARG USER_GID=${USER_UID}
-RUN groupadd --gid ${USER_GID} ${USERNAME} \
-&& useradd --uid ${USER_UID} --gid ${USER_GID} -m ${USERNAME} \
-&& echo ${USERNAME} ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
-&& chmod 0440 /etc/sudoers.d/${USERNAME} \
-&& chown -R ${USER_UID} ${CARGO_HOME} \
-&& chown -R ${USER_UID} ${RUSTUP_HOME}
 
 # Set the default user
 USER ${USERNAME}
