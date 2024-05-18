@@ -6,7 +6,8 @@ on:
   
 jobs:
   tag:
-    if: github.event.pull_request.merged && (github.event.pull_request.head.repo == github.event.pull_request.base.repo)
+    # This could be flaky for forks - need to check both repos are the same but PR11 skipped with that check and YAGNI right now
+    if: github.event.pull_request.merged
     runs-on: ubuntu-latest
     permissions:
       contents: write
