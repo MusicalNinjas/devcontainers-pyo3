@@ -38,6 +38,7 @@ RUN dnf -y --setopt=install_weak_deps=False reinstall $(dnf list --installed | a
 
 # Basic development tools
 RUN dnf -y --setopt=install_weak_deps=False install \
+    bash-completion \
     git \
     just \
     which
