@@ -43,5 +43,5 @@ jobs:
         cache-to: type=gha,mode=max
         tags: |
           latest
-          PR${{ github.event.number  }}
+          pr${{ github.event.number  }}
         labels: ghcr.io/musicalninjas/pyo3-devcontainer
