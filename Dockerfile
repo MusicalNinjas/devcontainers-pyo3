@@ -53,8 +53,7 @@ RUN dnf -y --setopt=install_weak_deps=False install \
 # Python
 RUN dnf -y install \
     python \
-    python-pip \
-    python-pytest
+    python-pip
 
 # Rust (and python headers)
 # and chown CARGO_HOME and RUSTUP_HOME to the default user 
