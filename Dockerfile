@@ -16,7 +16,6 @@ skip_if_unavailable=True
 EOF
 
 # Rust stuff goes in /opt so we don't end up with system and user installs: this is a single user system.
-# Use (setf)acl to default all contents of RUSTUP_HOME & CARGO_HOME to world read-write (x = directories only).
 ENV RUSTUP_HOME=/opt/rustup \
     CARGO_HOME=/opt/cargo \
     PATH=/opt/cargo/bin:$PATH
