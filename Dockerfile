@@ -16,7 +16,6 @@ skip_if_unavailable=True
 EOF
 
 # Rust stuff goes in /opt so we don't end up with system and user installs: this is a single user system.
-# Use (setf)acl to default all contents of RUSTUP_HOME & CARGO_HOME to world read-write (x = directories only).
 ENV RUSTUP_HOME=/opt/rustup \
     CARGO_HOME=/opt/cargo \
     PATH=/opt/cargo/bin:$PATH
@@ -54,8 +53,7 @@ RUN dnf -y --setopt=install_weak_deps=False install \
 # Python
 RUN dnf -y install \
     python \
-    python-pip \
-    python-pytest
+    python-pip
 
 # Rust (and python headers)
 # and chown CARGO_HOME and RUSTUP_HOME to the default user 
@@ -68,11 +66,12 @@ RUN dnf -y install \
     llvm-tools-preview \
     rust-src \
 && cargo install \ 
+    cargo-expand \
+    cargo-cyclonedx \    
     grcov \
     mdbook \
-    cargo-expand \
-&& chown -R ${USER_UID} ${CARGO_HOME} \
-&& chown -R ${USER_UID} ${RUSTUP_HOME}
+&& chmod a+rwX ${CARGO_HOME} \
+&& chmod a+rwX ${RUSTUP_HOME}
 
 # ---
 # Final setup steps
