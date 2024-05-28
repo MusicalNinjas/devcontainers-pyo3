@@ -66,9 +66,10 @@ RUN dnf -y install \
     llvm-tools-preview \
     rust-src \
 && cargo install \ 
+    cargo-expand \
+    cargo-cyclonedx \    
     grcov \
     mdbook \
-    cargo-expand \
 && chown -R ${USER_UID} ${CARGO_HOME} \
 && chown -R ${USER_UID} ${RUSTUP_HOME}
 
