@@ -70,8 +70,8 @@ RUN dnf -y install \
     cargo-cyclonedx \    
     grcov \
     mdbook \
-&& chown -R ${USER_UID} ${CARGO_HOME} \
-&& chown -R ${USER_UID} ${RUSTUP_HOME}
+&& chmod a+rwX ${CARGO_HOME} \
+&& chmod a+rwX ${RUSTUP_HOME}
 
 # ---
 # Final setup steps
