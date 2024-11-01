@@ -1,4 +1,4 @@
-FROM docker.io/library/fedora:40
+FROM docker.io/library/fedora:41
 
 # ---
 # Setup base system ...
