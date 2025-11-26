@@ -28,16 +28,6 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: PR Tag
-      if: github.event.pull_request.merged
-      run: |
-        echo "TAG=pr${{ github.event.number  }}" >> $GITHUB_ENV
-
-    - name: Date Tag
-      if: ${{ ! github.event.pull_request.merged }}
-      run: |
-        echo "TAG=$(date -I)" >> $GITHUB_ENV
-
     - name: Define Image Metadata
       id: meta
       uses: docker/metadata-action@v5
@@ -45,7 +35,8 @@ jobs:
         images: |
           ghcr.io/musicalninjas/pyo3-devcontainer
         tags: |
-          type=raw,value=${{ env.TAG }}
+          type=schedule
+          type=ref,event=pr
           type=raw,value=latest
 
     - name: Login to ghcr.io
