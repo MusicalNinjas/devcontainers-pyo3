@@ -12,6 +12,7 @@ installonly_limit=3
 clean_requirements_on_remove=True
 best=False
 skip_if_unavailable=True
+install_weak_deps=False
 # tsflags=nodocs
 EOF
 
@@ -22,7 +23,7 @@ ENV RUSTUP_HOME=/opt/rustup \
 RUN mkdir --mode=777 --parents $RUSTUP_HOME \
 && mkdir --mode=777 --parents $CARGO_HOME
 
-# Create the default user - most agents mount workspace directory chowned to 1000:1000
+# Create the default user
 ARG USERNAME=pyo3
 ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
