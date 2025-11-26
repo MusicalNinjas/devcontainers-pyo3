@@ -13,6 +13,7 @@ clean_requirements_on_remove=True
 best=False
 skip_if_unavailable=True
 install_weak_deps=False
+assumeyes=True
 # tsflags=nodocs
 EOF
 
@@ -37,28 +38,28 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} \
 # ---
 
 # Man pages for all the stuff which is already installed, man itself and basic manpages
-RUN dnf -y --setopt=install_weak_deps=False reinstall $(dnf list --installed | awk '{print $1}') \
-&& dnf -y --setopt=install_weak_deps=False install \
+RUN dnf update \
+&& dnf reinstall $(dnf list --installed | awk '{print $1}') \
+&& dnf install \
     man \
     man-db \
-    man-pages \
-&& dnf -y update
+    man-pages
 
 # Basic development tools
-RUN dnf -y --setopt=install_weak_deps=False install \
+RUN dnf install \
     bash-completion \
     git \
     just \
     which
 
 # Python
-RUN dnf -y install \
+RUN dnf install \
     python \
     python-pip
 
 # Rust (and python headers)
 # and chown CARGO_HOME and RUSTUP_HOME to the default user 
-RUN dnf -y install \
+RUN dnf install \
     clang \
     python3-devel \
     rustup \
