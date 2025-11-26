@@ -23,9 +23,9 @@ ARG USERNAME=pyo3
 ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
 RUN groupadd --gid ${USER_GID} ${USERNAME} \
-&& useradd --uid ${USER_UID} --gid ${USER_GID} -m ${USERNAME} \
-&& echo ${USERNAME} ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
-&& chmod 0440 /etc/sudoers.d/${USERNAME}
+ && useradd --uid ${USER_UID} --gid ${USER_GID} -m ${USERNAME} \
+ && echo ${USERNAME} ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
+ && chmod 0440 /etc/sudoers.d/${USERNAME}
 
 # ---
 # Install ...
@@ -33,26 +33,26 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} \
 
 # Man pages for all the stuff which is already installed, man itself and basic manpages
 RUN dnf update \
-&& dnf reinstall $(dnf list --installed | awk '{print $1}') \
-&& dnf install \
-    man \
-    man-db \
-    man-pages
+ && dnf reinstall $(dnf list --installed | awk '{print $1}') \
+ && dnf install \
+        man \
+        man-db \
+        man-pages
 
 # Basic development tools
 RUN dnf install \
-    bash-completion \
-    git \
-    just \
-    which
+        bash-completion \
+        git \
+        just \
+        which
 
 # Python
 RUN dnf install \
-    python \
-    python-pip
+        python \
+        python-pip
 
-# Rust (and python headers)
-# goes in /opt so we don't end up with system and user installs: this is a single user system.
+# Rust goes in /opt with a dedicated rust group so we don't end up with system and user installs: this is a single user system.
+# + python headers
 ENV RUSTUP_HOME=/opt/rustup \
     CARGO_HOME=/opt/cargo \
     PATH=/opt/cargo/bin:$PATH
