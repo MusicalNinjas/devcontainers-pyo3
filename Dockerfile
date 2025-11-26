@@ -33,7 +33,7 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} \
 
 # Man pages for all the stuff which is already installed, man itself and basic manpages
 RUN dnf update \
- && dnf reinstall $(dnf list --installed | awk '{print $1}') \
+ && dnf reinstall --skip-unavailable $(dnf list --installed | awk '{print $1}') \
  && dnf install \
         man \
         man-db \
