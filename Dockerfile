@@ -1,4 +1,4 @@
-FROM docker.io/library/fedora:latest@sha256:aa7befe5cfd1f0e062728c16453cd1c479d4134c7b85eac00172f3025ab0d522
+FROM fedora:latest@sha256:aa7befe5cfd1f0e062728c16453cd1c479d4134c7b85eac00172f3025ab0d522
 
 # ---
 # Setup base system ...
