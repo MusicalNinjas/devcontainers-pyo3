@@ -50,6 +50,7 @@ RUN dnf install \
 RUN dnf install \
         python \
         python-pip
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 # Rust goes in /opt with a dedicated rust group so we don't end up with system and user installs: this is a single user system.
 # + python headers
